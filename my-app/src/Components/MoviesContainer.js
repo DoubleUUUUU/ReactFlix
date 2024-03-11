@@ -22,15 +22,20 @@ export default function MoviesContainer() {
 
     
     const filterMovie = (filter) => {
-        const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(filter)}`;
-        fetch(searchUrl)
-            .then((res) => res.json())
-            .then((data) => {
-
-                setFilteredMovies(data.results);
-                movies(data.results);
-            })
-            .catch(error => console.error('Error fetching searching results:', error));
+        if (filter === ''){
+            setFilteredMovies(movies.results);
+        }
+        else
+        {
+            const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(filter)}`;
+            fetch(searchUrl)
+                .then((res) => res.json())
+                .then((data) => {
+                    setFilteredMovies(data.results);
+                    movies(data.results);
+                })
+                .catch(error => console.error('Error fetching searching results:', error));
+        }
     }
 
 
